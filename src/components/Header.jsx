@@ -1,19 +1,30 @@
 import React from "react";
 import { TbSunMoon } from "react-icons/tb";
-import { Link } from "react-router";
+import { FaHome } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 
-function Header({ toggleTheme, theme }) {
+function Header({ toggleTheme, theme, currentPage, setCurrentPage }) {
   return (
     <header className="p-4 bg-gray-800 text-white flex justify-between items-center">
       <h1 className="text-4xl font-bold">MyWorkoutBuddy</h1>
-      <nav className="space-x-4 ">
-        <ul className="flex gap-20 text-3xl">
-            <li><Link
-              to="/exercises"
-              className="hover:text-yellow-400 transition-colors"
+      <nav className="space-x-4">
+        <ul className="flex gap-8 text-xl">
+          <li>
+            <button
+              onClick={() => setCurrentPage("home")}
+              className={`hover:text-blue-300 ${currentPage === 'home' ? 'font-bold text-blue-400' : ''} flex gap-1`}
             >
-              Exercises
-            </Link></li>
+              Home <FaHome className="mt-1" size={22} />
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() => setCurrentPage("favorites")}
+              className={`hover:text-blue-300 ${currentPage === 'favorites' ? 'font-bold text-blue-400' : ''} flex gap-1`}
+            >
+              Favorites <FaHeart className="mt-1" />
+            </button>
+          </li>
         </ul>
       </nav>
       <button onClick={toggleTheme} className="p-2 bg-gray-600 rounded">
