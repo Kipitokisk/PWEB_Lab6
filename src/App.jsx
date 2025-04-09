@@ -2,47 +2,134 @@
 import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Exercise from "./components/Exercise";
-import ExerciseList from "./components/ExerciseList";
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
-  const [exercises, setExercise] = useState([{
-    name: "Push-up",
-    description: "A bodyweight exercise to build chest strength.",
-    sets: 3,
-    reps: 15,
-    image: "https://gratisography.com/wp-content/uploads/2024/11/gratisography-augmented-reality-800x525.jpg"
-  },
-  {
-    name: "Squat",
-    description: "A leg exercise that strengthens thighs, hips, and buttocks.",
-    sets: 4,
-    reps: 20,
-    image: "https://gratisography.com/wp-content/uploads/2024/11/gratisography-augmented-reality-800x525.jpg"
-  }
-]);
+  const [currentPage, setCurrentPage] = useState("home");
+  const [favorites, setFavorites] = useState(
+    JSON.parse(localStorage.getItem("favorites")) || []
+  );
+  const [exercises, setExercises] = useState([
+    {
+      id: 1,
+      name: "Push-up",
+      description: "A bodyweight exercise to build chest strength.",
+      sets: 3,
+      reps: 15,
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQM1pa4ITVQ3ZKXTM807-Juor1IP9kv5DwmJw&s"
+    },
+    {
+      id: 2,
+      name: "Squat",
+      description: "A leg exercise that strengthens thighs, hips, and buttocks.",
+      sets: 4,
+      reps: 20,
+      image: "/api/placeholder/400/320"
+    }
+  ]);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
   }, [theme]);
 
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
+
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
   };
 
+  const addExercise = () => {
+    const newExercise = {
+      id: exercises.length + 1,
+      name: "Lunges",
+      description: "A lower body exercise that targets the thighs, glutes, and hips.",
+      sets: 3,
+      reps: 12,
+      image: "/api/placeholder/400/320"
+    };
+    setExercises([...exercises, newExercise]);
+  };
+
+  const addToFavorites = (exercise) => {
+    const isAlreadyFavorite = favorites.some(fav => fav.id === exercise.id);
+    
+    if (isAlreadyFavorite) {
+      setFavorites(favorites.filter(fav => fav.id !== exercise.id));
+    } else {
+      setFavorites([...favorites, exercise]);
+    }
+  };
+
+  const isExerciseFavorite = (exerciseId) => {
+    return favorites.some(fav => fav.id === exerciseId);
+  };
+
   return (
     <div
-      className={
+      className={`min-h-screen ${
         theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-black"
-      }
+      }`}
     >
-      <Header toggleTheme={toggleTheme} theme={theme} />
-      <div className="space-y-4">
-          {exercises.map((exercise, index) => (
-            <Exercise key={index} exercise={exercise} />
-          ))}
-        </div>
+      <Header 
+        toggleTheme={toggleTheme} 
+        theme={theme} 
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
+      
+      {currentPage === "home" ? (
+        <>
+          <div className="text-center py-6">
+            <button 
+              onClick={addExercise} 
+              className="mt-4 mx-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Add New Exercise
+            </button>
+          </div>
+          <div className="space-y-6 p-4">
+            {exercises.map((exercise) => (
+              <Exercise 
+                key={exercise.id} 
+                exercise={exercise} 
+                addToFavorites={addToFavorites}
+                isFavorite={isExerciseFavorite(exercise.id)}
+              />
+            ))}
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="text-center py-6">
+            <h2 className="text-3xl font-bold">My Favorite Exercises</h2>
+          </div>
+          <div className="space-y-6 p-4">
+            {favorites.length > 0 ? (
+              favorites.map((exercise) => (
+                <Exercise 
+                  key={exercise.id} 
+                  exercise={exercise} 
+                  addToFavorites={addToFavorites}
+                  isFavorite={true}
+                />
+              ))
+            ) : (
+              <div className="text-center py-12">
+                <p className="text-xl">You haven't added any favorite exercises yet.</p>
+                <button 
+                  onClick={() => setCurrentPage("home")} 
+                  className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  Browse Exercises
+                </button>
+              </div>
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 }
