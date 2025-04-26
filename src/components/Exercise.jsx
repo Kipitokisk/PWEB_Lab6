@@ -1,7 +1,7 @@
 import React from "react";
 import { FaHeart } from "react-icons/fa";
 
-function Exercise({ exercise, addToFavorites, isFavorite }) {
+function Exercise({ exercise, addToFavorites, isFavorite, removeExercise }) {
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg mx-auto">
       <div className="flex justify-between items-start">
@@ -9,12 +9,10 @@ function Exercise({ exercise, addToFavorites, isFavorite }) {
         <button
           onClick={() => addToFavorites(exercise)}
           className={`px-3 py-1 rounded-full ${
-            isFavorite 
-              ? "bg-red-500 text-white" 
-              : "bg-gray-200 hover:bg-gray-300"
+            isFavorite ? "bg-red-500 text-white" : "bg-gray-200 hover:bg-gray-300"
           }`}
         >
-          <FaHeart/>
+          <FaHeart />
         </button>
       </div>
       <p>{exercise.description}</p>
@@ -31,6 +29,12 @@ function Exercise({ exercise, addToFavorites, isFavorite }) {
           className="mt-4 w-full rounded-lg"
         />
       )}
+      <button
+        onClick={() => removeExercise(exercise.id)}
+        className="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+      >
+        Remove Exercise
+      </button>
     </div>
   );
 }
