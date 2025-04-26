@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
-import ExerciseList from "./components/ExerciseList"; // Import ExerciseList
-import Exercise from "./components/Exercise"; // Keep the Exercise component if needed elsewhere
+import ExerciseList from "./components/ExerciseList";
+import Exercise from "./components/Exercise"; 
+import AddExerciseForm from "./components/AddExerciseForm"; 
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
@@ -9,24 +10,26 @@ function App() {
   const [favorites, setFavorites] = useState(
     JSON.parse(localStorage.getItem("favorites")) || []
   );
-  const [exercises, setExercises] = useState([
-    {
-      id: 1,
-      name: "Push-up",
-      description: "A bodyweight exercise to build chest strength.",
-      sets: 3,
-      reps: 15,
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQM1pa4ITVQ3ZKXTM807-Juor1IP9kv5DwmJw&s"
-    },
-    {
-      id: 2,
-      name: "Squat",
-      description: "A leg exercise that strengthens thighs, hips, and buttocks.",
-      sets: 4,
-      reps: 20,
-      image: "/api/placeholder/400/320"
-    }
-  ]);
+  const [exercises, setExercises] = useState(
+    JSON.parse(localStorage.getItem("exercises")) || [
+      {
+        id: 1,
+        name: "Push-up",
+        description: "A bodyweight exercise to build chest strength.",
+        sets: 3,
+        reps: 15,
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQM1pa4ITVQ3ZKXTM807-Juor1IP9kv5DwmJw&s"
+      },
+      {
+        id: 2,
+        name: "Squat",
+        description: "A leg exercise that strengthens thighs, hips, and buttocks.",
+        sets: 4,
+        reps: 20,
+        image: "/api/placeholder/400/320"
+      }
+    ]
+  );
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -37,20 +40,21 @@ function App() {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
 
+  useEffect(() => {
+    localStorage.setItem("exercises", JSON.stringify(exercises));
+  }, [exercises]);
+
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
   };
 
-  const addExercise = () => {
-    const newExercise = {
-      id: exercises.length + 1,
-      name: "Lunges",
-      description: "A lower body exercise that targets the thighs, glutes, and hips.",
-      sets: 3,
-      reps: 12,
-      image: "/api/placeholder/400/320"
-    };
-    setExercises([...exercises, newExercise]);
+  const addExercise = (newExercise) => {
+    setExercises((prevExercises) => [...prevExercises, newExercise]);
+    setCurrentPage("home");
+  };
+
+  const removeExercise = (exerciseId) => {
+    setExercises(exercises.filter((exercise) => exercise.id !== exerciseId));
   };
 
   const addToFavorites = (exercise) => {
@@ -68,21 +72,28 @@ function App() {
   };
 
   return (
-    <div className={`min-h-screen ${theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-black"}`}>
+    <div className={`min-h-screen ${theme === "dark" ? "bg-gray-900" : "bg-white text-black"}`}>
       <Header toggleTheme={toggleTheme} theme={theme} currentPage={currentPage} setCurrentPage={setCurrentPage} />
       
       {currentPage === "home" ? (
         <>
           <div className="text-center py-6">
-            <button onClick={addExercise} className="mt-4 mx-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <button onClick={() => setCurrentPage("addExercise")} className="mt-4 mx-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
               Add New Exercise
             </button>
           </div>
-          {/* Use ExerciseList here */}
+          
           <div className="space-y-6 p-4">
-            <ExerciseList exercises={exercises} addToFavorites={addToFavorites} isExerciseFavorite={isExerciseFavorite} />
+          <ExerciseList
+              exercises={exercises}
+              removeExercise={removeExercise}
+              addToFavorites={addToFavorites}
+              isExerciseFavorite={isExerciseFavorite}
+            />
           </div>
         </>
+      ) : currentPage === "addExercise" ? (
+        <AddExerciseForm addExercise={addExercise} />
       ) : (
         <>
           <div className="text-center py-6">
