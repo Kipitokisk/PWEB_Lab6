@@ -1,12 +1,16 @@
 import React from "react";
-
-function ExerciseList({ exercises }) {
+import Exercise from "./Exercise";
+function ExerciseList({ exercises, addToFavorites, isExerciseFavorite }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
       {exercises.map((exercise) => (
-        <div key={exercise.id} className="bg-white p-4 rounded-lg shadow-md">
-          <h3 className="text-xl font-bold">{exercise.name}</h3>
-          <p>{exercise.description}</p>
+        <div className="w-full sm:w-[300px] md:w-[350px] lg:w-[400px] mx-auto">
+          <Exercise
+            key={exercise.id}
+            exercise={exercise}
+            addToFavorites={addToFavorites}
+            isFavorite={isExerciseFavorite(exercise.id)}
+          />
         </div>
       ))}
     </div>

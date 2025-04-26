@@ -1,7 +1,7 @@
-// src/App.jsx
 import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
-import Exercise from "./components/Exercise";
+import ExerciseList from "./components/ExerciseList"; // Import ExerciseList
+import Exercise from "./components/Exercise"; // Keep the Exercise component if needed elsewhere
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
@@ -68,37 +68,19 @@ function App() {
   };
 
   return (
-    <div
-      className={`min-h-screen ${
-        theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-black"
-      }`}
-    >
-      <Header 
-        toggleTheme={toggleTheme} 
-        theme={theme} 
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
+    <div className={`min-h-screen ${theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-black"}`}>
+      <Header toggleTheme={toggleTheme} theme={theme} currentPage={currentPage} setCurrentPage={setCurrentPage} />
       
       {currentPage === "home" ? (
         <>
           <div className="text-center py-6">
-            <button 
-              onClick={addExercise} 
-              className="mt-4 mx-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
+            <button onClick={addExercise} className="mt-4 mx-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
               Add New Exercise
             </button>
           </div>
+          {/* Use ExerciseList here */}
           <div className="space-y-6 p-4">
-            {exercises.map((exercise) => (
-              <Exercise 
-                key={exercise.id} 
-                exercise={exercise} 
-                addToFavorites={addToFavorites}
-                isFavorite={isExerciseFavorite(exercise.id)}
-              />
-            ))}
+            <ExerciseList exercises={exercises} addToFavorites={addToFavorites} isExerciseFavorite={isExerciseFavorite} />
           </div>
         </>
       ) : (
@@ -109,20 +91,12 @@ function App() {
           <div className="space-y-6 p-4">
             {favorites.length > 0 ? (
               favorites.map((exercise) => (
-                <Exercise 
-                  key={exercise.id} 
-                  exercise={exercise} 
-                  addToFavorites={addToFavorites}
-                  isFavorite={true}
-                />
+                <Exercise key={exercise.id} exercise={exercise} addToFavorites={addToFavorites} isFavorite={true} />
               ))
             ) : (
               <div className="text-center py-12">
                 <p className="text-xl">You haven't added any favorite exercises yet.</p>
-                <button 
-                  onClick={() => setCurrentPage("home")} 
-                  className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                >
+                <button onClick={() => setCurrentPage("home")} className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                   Browse Exercises
                 </button>
               </div>
