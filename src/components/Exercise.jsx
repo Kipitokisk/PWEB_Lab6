@@ -1,9 +1,9 @@
 import React from "react";
 import { FaHeart } from "react-icons/fa";
 
-function Exercise({ exercise, addToFavorites, isFavorite, removeExercise }) {
+function Exercise({ exercise, addToFavorites, isFavorite, removeExercise, theme}) {
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg mx-auto">
+    <div className={`p-6 rounded-lg shadow-lg w-md mx-auto ${theme === "dark" ? "bg-gray-600" : "bg-white"}`}>
       <div className="flex justify-between items-start">
         <h2 className="text-2xl font-bold">{exercise.name}</h2>
         <button
@@ -26,12 +26,12 @@ function Exercise({ exercise, addToFavorites, isFavorite, removeExercise }) {
         <img
           src={exercise.image}
           alt={exercise.name}
-          className="mt-4 w-full rounded-lg"
+          className="mt-4 w-full h-60 rounded-lg"
         />
       )}
       <button
         onClick={() => removeExercise(exercise.id)}
-        className="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+        className={`mt-4 text-white font-bold py-2 px-4 rounded ${theme === "dark" ? "bg-gray-500 hover:bg-gray-700" : "bg-red-500 hover:bg-red-700"}`}
       >
         Remove Exercise
       </button>
