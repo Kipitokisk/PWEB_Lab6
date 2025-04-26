@@ -5,7 +5,7 @@ import { FaHeart } from "react-icons/fa";
 
 function Header({ toggleTheme, theme, currentPage, setCurrentPage }) {
   return (
-    <header className="p-4 bg-gray-800 text-white flex justify-between items-center">
+    <header className="p-4 bg-gray-700 text-white flex justify-between items-center">
       <h1 className="text-4xl font-bold">MyWorkoutBuddy</h1>
       <nav className="space-x-4">
         <ul className="flex gap-8 text-xl">

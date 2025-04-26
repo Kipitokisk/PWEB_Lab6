@@ -26,7 +26,7 @@ function App() {
         description: "A leg exercise that strengthens thighs, hips, and buttocks.",
         sets: 4,
         reps: 20,
-        image: "/api/placeholder/400/320"
+        image: "https://as2.ftcdn.net/v2/jpg/03/44/75/77/1000_F_344757785_UYxWLYhTqI1igC5T5d47d1uzVahVRh4m.jpg"
       }
     ]
   );
@@ -55,6 +55,7 @@ function App() {
 
   const removeExercise = (exerciseId) => {
     setExercises(exercises.filter((exercise) => exercise.id !== exerciseId));
+    setFavorites(favorites.filter((exercise) => exercise.id !== exercise.id));
   };
 
   const addToFavorites = (exercise) => {
@@ -72,7 +73,7 @@ function App() {
   };
 
   return (
-    <div className={`min-h-screen ${theme === "dark" ? "bg-gray-900" : "bg-white text-black"}`}>
+    <div className={`min-h-screen ${theme === "dark" ? "bg-gray-800" : "bg-white"}`}>
       <Header toggleTheme={toggleTheme} theme={theme} currentPage={currentPage} setCurrentPage={setCurrentPage} />
       
       {currentPage === "home" ? (
@@ -89,6 +90,7 @@ function App() {
               removeExercise={removeExercise}
               addToFavorites={addToFavorites}
               isExerciseFavorite={isExerciseFavorite}
+              theme={theme}
             />
           </div>
         </>
@@ -102,7 +104,7 @@ function App() {
           <div className="space-y-6 p-4">
             {favorites.length > 0 ? (
               favorites.map((exercise) => (
-                <Exercise key={exercise.id} exercise={exercise} addToFavorites={addToFavorites} isFavorite={true} />
+                <Exercise key={exercise.id} exercise={exercise} addToFavorites={addToFavorites} isFavorite={true} theme={theme}/>
               ))
             ) : (
               <div className="text-center py-12">
