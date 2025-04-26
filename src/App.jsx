@@ -102,14 +102,21 @@ function App() {
             <h2 className="text-3xl font-bold">My Favorite Exercises</h2>
           </div>
           <div className="space-y-6 p-4">
-            {favorites.length > 0 ? (
-              favorites.map((exercise) => (
-                <Exercise key={exercise.id} exercise={exercise} addToFavorites={addToFavorites} isFavorite={true} theme={theme}/>
-              ))
+          {favorites.length > 0 ? (
+            <ExerciseList
+              exercises={favorites}
+              removeExercise={removeExercise}
+              addToFavorites={addToFavorites}
+              isExerciseFavorite={() => true} // Because here, all exercises are favorites
+              theme={theme}
+            />
             ) : (
               <div className="text-center py-12">
                 <p className="text-xl">You haven't added any favorite exercises yet.</p>
-                <button onClick={() => setCurrentPage("home")} className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <button
+                  onClick={() => setCurrentPage("home")}
+                  className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
                   Browse Exercises
                 </button>
               </div>
