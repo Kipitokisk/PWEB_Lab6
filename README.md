@@ -1,12 +1,25 @@
-# React + Vite
+# Lab 5 - Websockets
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+by Revenco Victor - FAF-221
 
-Currently, two official plugins are available:
+## Project Overview
+This laboratory is about creating a command line program.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+- **go2web -u url** - make an HTTP request to the specified URL and print the response
+- **go2web -s search-term** - make an HTTP request to search the term using your favorite search engine and print top 10 results
+- **go2web -h** - show this help
 
-## Expanding the ESLint configuration
+The responses from request should be human-readable (e.g. no HTML tags in the output)
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Technologies Used
+- **Java** for main program
+- **Git & GitHub** for version control
+- **Windows Poweshell** for CLI
+## Screenshots
+![-s command](screenshots/captur1.PNG)
+![-u command](screenshots/captur2.PNG)
+![cache hit](screenshots/captur3.PNG)
+
+## GIF
+![CLI gif](screenshots/lab5.gif)
