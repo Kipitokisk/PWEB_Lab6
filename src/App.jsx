@@ -15,7 +15,8 @@ function App() {
       {
         id: 1,
         name: "Push-up",
-        description: "A bodyweight exercise to build chest strength.",
+        targets: ["Chest", "Triceps", "Shoulders"],
+        difficulty: "Medium",
         sets: 3,
         reps: 15,
         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQM1pa4ITVQ3ZKXTM807-Juor1IP9kv5DwmJw&s"
@@ -23,7 +24,8 @@ function App() {
       {
         id: 2,
         name: "Squat",
-        description: "A leg exercise that strengthens thighs, hips, and buttocks.",
+        targets: ["Quadriceps", "Glutes", "Hamstrings"],
+        difficulty: "Easy",
         sets: 4,
         reps: 20,
         image: "https://as2.ftcdn.net/v2/jpg/03/44/75/77/1000_F_344757785_UYxWLYhTqI1igC5T5d47d1uzVahVRh4m.jpg"
