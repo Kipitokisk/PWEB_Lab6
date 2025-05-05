@@ -67,7 +67,7 @@ function AddExerciseForm({ addExercise }) {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg mt-8">
+    <div className="w-full max-w-2xl mx-auto bg-white p-4 sm:p-6 rounded-lg shadow-lg mt-4 sm:mt-8">
       <h2 className="text-3xl font-bold mb-6">Add New Exercise</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>

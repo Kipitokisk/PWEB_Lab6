@@ -5,7 +5,7 @@ import { FaRegTrashAlt } from "react-icons/fa";
 
 function Exercise({ exercise, addToFavorites, isFavorite, removeExercise, theme}) {
   return (
-    <div className={`p-6 py-5 rounded-lg shadow-lg w-md mx-auto ${theme === "dark" ? "bg-gradient-to-r from-[#3016c1] to-[#2b134f]" : "bg-gradient-to-r from-[#3016c1] to-[#3B4EA0]"} text-white`}>
+    <div className={`w-full max-w-md mx-auto p-4 sm:p-6 rounded-lg shadow-lg transition ${theme === "dark" ? "bg-gradient-to-r from-[#3016c1] to-[#2b134f]" : "bg-gradient-to-r from-[#3016c1] to-[#3B4EA0]"} text-white`}>
       <div className="flex justify-between items-start">
         <h2 className="text-4xl font-bold text-white uppercase">{exercise.name}</h2>
         <button

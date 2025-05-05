@@ -1,4 +1,4 @@
-# Lab 5 - Websockets
+# Lab 6 - Front-end
 
 by Revenco Victor - FAF-221
 

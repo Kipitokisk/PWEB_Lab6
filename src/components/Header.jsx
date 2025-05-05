@@ -7,11 +7,11 @@ function Header({ toggleTheme, theme }) {
   const location = useLocation();
 
   return (
-    <header className="p-4 bg-[#2C2842] text-white flex justify-between items-center">
-      <h1 className="text-4xl font-bold">MyWorkoutBuddy</h1>
-      
-      <nav className="space-x-4">
-        <ul className="flex gap-8 text-xl pr-67">
+    <header className="p-4 bg-[#2C2842] text-white flex flex-row justify-between items-center gap-4 md:gap-0">
+      <h1 className="text-2xl md:text-4xl font-bold text-center md:text-left">MyWorkoutBuddy</h1>
+  
+      <nav className="w-full md:w-auto">
+        <ul className="flex flex-col md:flex-row justify-center md:gap-8 text-lg md:text-xl items-center">
           <li>
             <Link
               to="/"
@@ -31,12 +31,8 @@ function Header({ toggleTheme, theme }) {
         </ul>
       </nav>
 
-      <button onClick={toggleTheme} className="p-2 bg-gray-600 rounded">
-        {theme === "light" ? (
-          <TbSunMoon className="text-yellow-500" size={24} />
-        ) : (
-          <TbSunMoon className="text-blue-500" size={24} />
-        )}
+      <button onClick={toggleTheme} className="p-2 bg-gray-600 rounded self-center">
+        <TbSunMoon className={theme === "light" ? "text-yellow-500" : "text-blue-500"} size={24} />
       </button>
     </header>
   );
