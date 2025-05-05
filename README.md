@@ -20,8 +20,8 @@ desired exercise
 We have some items stored in local storage such as exercises, theme, favorite exercises.
 
 ## Screenshots
-![Light theme home page](screenshots/MainAppLight.PNG)
-![Dark theme home page](screenshots/MainAppDark.PNG)
-![Liked exercise](screenshots/LikedExercise.PNG)
-![Favorites list](screenshots/FavoritesList.PNG)
-![Add exercise form](screenshots/AddExerciseForm.PNG)
+![Light theme home page](src/screenshots/MainAppLight.PNG)
+![Dark theme home page](src/screenshots/MainAppDark.PNG)
+![Liked exercise](src/screenshots/LikedExercise.PNG)
+![Favorites list](src/screenshots/FavoritesList.PNG)
+![Add exercise form](src/screenshots/AddExerciseForm.PNG)
