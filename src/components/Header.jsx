@@ -3,16 +3,16 @@ import { TbSunMoon } from "react-icons/tb";
 import { FaHome } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 
-function Header({ toggleTheme, theme, currentPage, setCurrentPage }) {
+function Header({ toggleTheme, theme, setCurrentPage }) {
   return (
-    <header className="p-4 bg-gray-700 text-white flex justify-between items-center">
+    <header className="p-4 bg-[#2C2842] text-white flex justify-between items-center">
       <h1 className="text-4xl font-bold">MyWorkoutBuddy</h1>
       <nav className="space-x-4">
-        <ul className="flex gap-8 text-xl">
+        <ul className="flex gap-8 text-xl pr-67">
           <li>
             <button
               onClick={() => setCurrentPage("home")}
-              className={`hover:text-blue-300 ${currentPage === 'home' ? 'font-bold text-blue-400' : ''} flex gap-1`}
+              className={`hover:text-blue-300 flex gap-1`}
             >
               Home <FaHome className="mt-1" size={22} />
             </button>
@@ -20,7 +20,7 @@ function Header({ toggleTheme, theme, currentPage, setCurrentPage }) {
           <li>
             <button
               onClick={() => setCurrentPage("favorites")}
-              className={`hover:text-blue-300 ${currentPage === 'favorites' ? 'font-bold text-blue-400' : ''} flex gap-1`}
+              className={`hover:text-blue-300 flex gap-1`}
             >
               Favorites <FaHeart className="mt-1" />
             </button>

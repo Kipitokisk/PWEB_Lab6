@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
 import ExerciseList from "./components/ExerciseList";
-import Exercise from "./components/Exercise"; 
 import AddExerciseForm from "./components/AddExerciseForm"; 
 
 function App() {
@@ -15,7 +14,8 @@ function App() {
       {
         id: 1,
         name: "Push-up",
-        description: "A bodyweight exercise to build chest strength.",
+        targets: ["Chest", "Triceps", "Shoulders"],
+        difficulty: "Medium",
         sets: 3,
         reps: 15,
         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQM1pa4ITVQ3ZKXTM807-Juor1IP9kv5DwmJw&s"
@@ -23,7 +23,8 @@ function App() {
       {
         id: 2,
         name: "Squat",
-        description: "A leg exercise that strengthens thighs, hips, and buttocks.",
+        targets: ["Quadriceps", "Glutes", "Hamstrings"],
+        difficulty: "Easy",
         sets: 4,
         reps: 20,
         image: "https://as2.ftcdn.net/v2/jpg/03/44/75/77/1000_F_344757785_UYxWLYhTqI1igC5T5d47d1uzVahVRh4m.jpg"
@@ -73,13 +74,13 @@ function App() {
   };
 
   return (
-    <div className={`min-h-screen ${theme === "dark" ? "bg-gray-800" : "bg-white"}`}>
+    <div className={`min-h-screen ${theme === "dark" ? "bg-gradient-to-b from-[#07031F] via-[#07031F] to-[#0F073D]" : "bg-[#f5f5f7]"}`}>
       <Header toggleTheme={toggleTheme} theme={theme} currentPage={currentPage} setCurrentPage={setCurrentPage} />
       
       {currentPage === "home" ? (
         <>
           <div className="text-center py-6">
-            <button onClick={() => setCurrentPage("addExercise")} className="mt-4 mx-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <button onClick={() => setCurrentPage("addExercise")} className={`mt-4 mx-auto ${theme === "dark" ? "bg-gradient-to-r from-[#3016c1] to-[#2b134f] hover:from-[#241097] hover:to-[#1e0e3d]" : "bg-gradient-to-r from-[#3016c1] to-[#3B4EA0] hover:from-[#250fa3] hover:to-[#2e3d88]"}  text-white font-bold py-2 px-4 rounded`}>
               Add New Exercise
             </button>
           </div>
@@ -99,7 +100,7 @@ function App() {
       ) : (
         <>
           <div className="text-center py-6">
-            <h2 className="text-3xl font-bold">My Favorite Exercises</h2>
+            <h2 className={`text-3xl font-bold ${theme === "dark" ? "text-white" : "text-black"}`}>My Favorite Exercises</h2>
           </div>
           <div className="space-y-6 p-4">
           {favorites.length > 0 ? (
@@ -107,15 +108,15 @@ function App() {
               exercises={favorites}
               removeExercise={removeExercise}
               addToFavorites={addToFavorites}
-              isExerciseFavorite={() => true} // Because here, all exercises are favorites
+              isExerciseFavorite={() => true} 
               theme={theme}
             />
             ) : (
               <div className="text-center py-12">
-                <p className="text-xl">You haven't added any favorite exercises yet.</p>
+                <p className={`text-xl ${theme === "dark" ? "text-white" : "text-black"}`}>You haven't added any favorite exercises yet.</p>
                 <button
                   onClick={() => setCurrentPage("home")}
-                  className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  className={`mt-4 ${theme === "dark" ? "bg-gradient-to-r from-[#3016c1] to-[#2b134f] hover:from-[#241097] hover:to-[#1e0e3d]" : "bg-gradient-to-r from-[#3016c1] to-[#3B4EA0] hover:from-[#250fa3] hover:to-[#2e3d88]"} text-white font-bold py-2 px-4 rounded`}
                 >
                   Browse Exercises
                 </button>
