@@ -5,13 +5,10 @@ function AddExerciseForm({ addExercise }) {
   const [difficulty, setDifficulty] = useState("Medium");
   const [sets, setSets] = useState("");
   const [reps, setReps] = useState("");
-  const [image, setImage] = useState("");
+  const [imageBase64, setImageBase64] = useState("");
   const [targets, setTargets] = useState([]);
-  const [imageSource, setImageSource] = useState("url"); // "url" or "file"
-  const [imageFile, setImageFile] = useState(null);
   const [showTargetDropdown, setShowTargetDropdown] = useState(false);
   
-  // Predefined list of muscle groups
   const muscleGroups = [
     "Chest", "Back", "Shoulders", "Biceps", "Triceps", 
     "Forearms", "Quadriceps", "Hamstrings", "Calves", 
@@ -20,15 +17,11 @@ function AddExerciseForm({ addExercise }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name || !sets || !reps || (imageSource === "url" && !image) || (imageSource === "file" && !imageFile)) {
-      alert("Please fill in all required fields.");
+    if (!name || !sets || !reps || !imageBase64) {
+      alert("Please fill in all required fields including image.");
       return;
     }
-
-    // Use URL if selected, otherwise use the local file
-    const finalImage = imageSource === "url" ? image : 
-                      imageFile ? URL.createObjectURL(imageFile) : "";
-
+  
     const newExercise = {
       id: Date.now(),
       name,
@@ -36,26 +29,40 @@ function AddExerciseForm({ addExercise }) {
       sets: parseInt(sets, 10),
       reps: parseInt(reps, 10),
       targets: targets,
-      image: finalImage,
+      image: imageBase64,
     };
-
+  
     addExercise(newExercise);
     setName("");
     setDifficulty("Medium");
     setSets("");
     setReps("");
     setTargets([]);
-    setImage("");
-    setImageFile(null);
+    setImageBase64("");
   };
 
   const handleTargetSelect = (muscleGroup) => {
     if (targets.includes(muscleGroup)) {
-      // Remove if already selected
       setTargets(targets.filter(target => target !== muscleGroup));
     } else {
-      // Add if not selected
       setTargets([...targets, muscleGroup]);
+    }
+  };
+
+  const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const handleImageChange = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const base64 = await convertToBase64(file);
+      setImageBase64(base64);
     }
   };
 
@@ -186,52 +193,18 @@ function AddExerciseForm({ addExercise }) {
 
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            Image
+            Upload Image (Required)
           </label>
-          <div className="mt-1">
-            <div className="flex space-x-2 mb-2">
-              <button
-                type="button"
-                className={`px-3 py-1 rounded ${imageSource === 'url' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
-                onClick={() => setImageSource('url')}
-              >
-                URL
-              </button>
-              <button
-                type="button"
-                className={`px-3 py-1 rounded ${imageSource === 'file' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
-                onClick={() => setImageSource('file')}
-              >
-                Upload File
-              </button>
-            </div>
-            
-            {imageSource === 'url' ? (
-              <input
-                id="image"
-                type="url"
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded"
-                placeholder="Enter image URL"
-              />
-            ) : (
-              <div>
-                <input
-                  id="imageFile"
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => setImageFile(e.target.files[0])}
-                  className="w-full p-2 border border-gray-300 rounded"
-                />
-                {imageFile && (
-                  <div className="mt-2">
-                    <p className="text-sm text-gray-500">Selected file: {imageFile.name}</p>
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
+          <input
+            id="imageFile"
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+          {imageBase64 && (
+            <img src={imageBase64} alt="Preview" className="mt-4 h-40 object-cover rounded-lg" />
+          )}
         </div>
 
         <button type="submit" className="w-full mt-4 bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600">

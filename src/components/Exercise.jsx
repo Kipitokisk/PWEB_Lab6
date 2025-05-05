@@ -5,17 +5,17 @@ import { FaRegTrashAlt } from "react-icons/fa";
 
 function Exercise({ exercise, addToFavorites, isFavorite, removeExercise, theme}) {
   return (
-    <div className={`p-6 py-10 rounded-lg shadow-lg w-md mx-auto ${theme === "dark" ? "bg-gray-600 text-white" : "bg-[#2D336B] text-white"}`}>
+    <div className={`p-6 py-5 rounded-lg shadow-lg w-md mx-auto ${theme === "dark" ? "bg-gradient-to-r from-[#3016c1] to-[#2b134f]" : "bg-gradient-to-r from-[#3016c1] to-[#3B4EA0]"} text-white`}>
       <div className="flex justify-between items-start">
         <h2 className="text-4xl font-bold text-white uppercase">{exercise.name}</h2>
         <button
         onClick={() => removeExercise(exercise.id)}
-        className={`text-white font-bold py-2 px-4 rounded ${theme === "dark" ? "bg-gray-500 hover:bg-gray-700" : "bg-gray-200 hover:bg-gray-300 text-black"}`}
+        className={"text-white font-bold py-2 px-4 rounded bg-gray-200 hover:bg-gray-300 text-black"}
       >
         <FaRegTrashAlt className="text-black"/>
       </button>
       </div>
-      <p className="py-3">
+      <p className="py-3 text-white">
         <strong>Targets:</strong> {exercise.targets && exercise.targets.length > 0 
           ? exercise.targets.join(", ") 
           : "None specified"}
