@@ -55,11 +55,12 @@ function App() {
   const addExercise = (newExercise) => {
     setExercises((prevExercises) => [...prevExercises, newExercise]);
     setCurrentPage("home");
+    navigate("/");
   };
 
   const removeExercise = (exerciseId) => {
     setExercises(exercises.filter((exercise) => exercise.id !== exerciseId));
-    setFavorites(favorites.filter((exercise) => exercise.id !== exercise.id));
+    setFavorites(favorites.filter((exercise) => exercise.id !== exerciseId));
   };
 
   const addToFavorites = (exercise) => {
@@ -81,62 +82,62 @@ function App() {
       <Header toggleTheme={toggleTheme} theme={theme} currentPage={currentPage} setCurrentPage={setCurrentPage} />
       
       <Routes>
-  <Route path="/" element={
-    <>
-      <div className="text-center py-6">
-        <button
-          onClick={() => navigate("/add")}
-          className={`mt-4 mx-auto ${theme === "dark" ? "bg-gradient-to-r from-[#3016c1] to-[#2b134f] hover:from-[#241097] hover:to-[#1e0e3d]" : "bg-gradient-to-r from-[#3016c1] to-[#3B4EA0] hover:from-[#250fa3] hover:to-[#2e3d88]"}  text-white font-bold py-2 px-4 rounded`}
-        >
-          Add New Exercise
-        </button>
-      </div>
+        <Route path="/" element={
+          <>
+            <div className="text-center py-6">
+              <button
+                onClick={() => navigate("/add")}
+                className={`mt-4 mx-auto ${theme === "dark" ? "bg-gradient-to-r from-[#3016c1] to-[#2b134f] hover:from-[#241097] hover:to-[#1e0e3d]" : "bg-gradient-to-r from-[#3016c1] to-[#3B4EA0] hover:from-[#250fa3] hover:to-[#2e3d88]"}  text-white font-bold py-2 px-4 rounded`}
+              >
+                Add New Exercise
+              </button>
+            </div>
 
-      <div className="space-y-6 p-4">
-        <ExerciseList
-          exercises={exercises}
-          removeExercise={removeExercise}
-          addToFavorites={addToFavorites}
-          isExerciseFavorite={isExerciseFavorite}
-          theme={theme}
-        />
-      </div>
-    </>
-  } />
+            <div className="space-y-6 p-4">
+              <ExerciseList
+                exercises={exercises}
+                removeExercise={removeExercise}
+                addToFavorites={addToFavorites}
+                isExerciseFavorite={isExerciseFavorite}
+                theme={theme}
+              />
+            </div>
+          </>
+        } />
 
-  <Route path="/add" element={
-    <AddExerciseForm addExercise={addExercise} />
-  } />
+        <Route path="/add" element={
+          <AddExerciseForm addExercise={addExercise} />
+        } />
 
-  <Route path="/favorites" element={
-    <>
-      <div className="text-center py-6">
-        <h2 className={`text-3xl font-bold ${theme === "dark" ? "text-white" : "text-black"}`}>My Favorite Exercises</h2>
-      </div>
-      <div className="space-y-6 p-4">
-        {favorites.length > 0 ? (
-          <ExerciseList
-            exercises={favorites}
-            removeExercise={removeExercise}
-            addToFavorites={addToFavorites}
-            isExerciseFavorite={() => true}
-            theme={theme}
-          />
-        ) : (
-          <div className="text-center py-12">
-            <p className={`text-xl ${theme === "dark" ? "text-white" : "text-black"}`}>You haven't added any favorite exercises yet.</p>
-            <button
-              onClick={() => navigate("/")}
-              className={`mt-4 ${theme === "dark" ? "bg-gradient-to-r from-[#3016c1] to-[#2b134f] hover:from-[#241097] hover:to-[#1e0e3d]" : "bg-gradient-to-r from-[#3016c1] to-[#3B4EA0] hover:from-[#250fa3] hover:to-[#2e3d88]"} text-white font-bold py-2 px-4 rounded`}
-            >
-              Browse Exercises
-            </button>
-          </div>
-        )}
-      </div>
-    </>
-  } />
-</Routes>
+        <Route path="/favorites" element={
+          <>
+            <div className="text-center py-6">
+              <h2 className={`text-3xl font-bold ${theme === "dark" ? "text-white" : "text-black"}`}>My Favorite Exercises</h2>
+            </div>
+            <div className="space-y-6 p-4">
+              {favorites.length > 0 ? (
+                <ExerciseList
+                  exercises={favorites}
+                  removeExercise={removeExercise}
+                  addToFavorites={addToFavorites}
+                  isExerciseFavorite={() => true}
+                  theme={theme}
+                />
+              ) : (
+                <div className="text-center py-12">
+                  <p className={`text-xl ${theme === "dark" ? "text-white" : "text-black"}`}>You haven't added any favorite exercises yet.</p>
+                  <button
+                    onClick={() => navigate("/")}
+                    className={`mt-4 ${theme === "dark" ? "bg-gradient-to-r from-[#3016c1] to-[#2b134f] hover:from-[#241097] hover:to-[#1e0e3d]" : "bg-gradient-to-r from-[#3016c1] to-[#3B4EA0] hover:from-[#250fa3] hover:to-[#2e3d88]"} text-white font-bold py-2 px-4 rounded`}
+                  >
+                    Browse Exercises
+                  </button>
+                </div>
+              )}
+            </div>
+          </>
+        } />
+      </Routes>
     </div>
   );
 }

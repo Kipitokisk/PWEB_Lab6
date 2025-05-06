@@ -10,7 +10,7 @@ function Exercise({ exercise, addToFavorites, isFavorite, removeExercise, theme}
         <h2 className="text-4xl font-bold text-white uppercase">{exercise.name}</h2>
         <button
         onClick={() => removeExercise(exercise.id)}
-        className={"text-white font-bold py-2 px-4 rounded bg-gray-200 hover:bg-gray-300 text-black"}
+        className={"text-white font-bold py-2 px-4 rounded bg-gray-200 hover:bg-gray-300 "}
       >
         <FaRegTrashAlt className="text-black"/>
       </button>

@@ -141,23 +141,6 @@ function AddExerciseForm({ addExercise }) {
               </div>
             )}
           </div>
-          <div className="mt-2 flex flex-wrap gap-2">
-            {targets.map(target => (
-              <span 
-                key={target} 
-                className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded flex items-center"
-              >
-                {target}
-                <button 
-                  type="button"
-                  onClick={() => setTargets(targets.filter(t => t !== target))}
-                  className="ml-1 text-blue-800 hover:text-blue-900"
-                >
-                  ×
-                </button>
-              </span>
-            ))}
-          </div>
         </div>
 
         <div className="flex space-x-4">
